@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    a:hover {
+      color: skyblue;
+    }
+
+
+    a:active {
+      color: blueviolet;
+    }
+  </style>
+
+</head>
+
+<body>
+  <a href="http://www.baidu.com">baidu</a>
+
+  <div class="one">one
+    <div class="two">two</div>
+    <div class="three">three</div>
+  </div>
+  <!-- <marquee scrolldelay='200' direction='Left'
+    behavior='alternate'
+    scrollamount = '50'
+    loop = -1
+  >
+    welcome
+  </marquee> -->
+  <script>
+  //#region 
+    // var a = {
+    //   gender:'男'
+    // }
+    // function Person() {
+    //   this.name='chen',
+    //   this.age=18
+    // }
+    // Person.prototype = a
+    // var p1 = new Person()
+
+    // for(let item in p1){
+    //   if(p1.hasOwnProperty(item)){
+    //     console.log(`自身的属性${item}`);
+    //   }else{
+    //     console.log(`别处的属性${item}`);
+    //   }
+    // }
+   //#endregion
+
+
+  // var a = 0;
+  // var b = 0;
+  // function A(a){
+  //   A = function(b) {
+  //     alert(a + b++);
+  //   }
+  //   alert(a++);
+  // }
+  // A(1);
+  // A(2);
+
+
+// function Dog(name){
+//   this.name = name;
+// }
+// Dog.prototype.peek = function(){
+//   alert(`${this.name}wang~`);
+// }
+
+
+// function _new(fn,...args){
+//   let obj = Object.create(fn.prototype);
+//   const rel = fn.apply(obj,args);
+//   return rel instanceof Object ? rel:obj;
+// }
+
+// const D = _new(Dog,'hashi')
+// D.peek()
+
+// class Dog {
+//   constructor(name,age){
+//     this.name = name;
+//     this.age = age;
+//   }
+//   peek(){
+//     console.log(`${this.name}wang~`);
+//     console.log(this.age);
+//   }
+// }
+// **************************************************
+// var name = 'Jay'
+// function Person(name){
+//   this.name = name;
+//   console.log(this.name);
+// }
+
+// var a = Person('Tom')
+// console.log(name);
+// console.log(a);
+// var b = new Person('chen')
+// console.log(b);
+
+
+
+// *************************************************
+// class A{}
+// class B extends A {}
+
+// const a = new A()
+// const b = new B()
+
+// console.log(a);
+// console.log(b);
+
+// console.log(a.__proto__);
+// console.log(b.__proto__);
+// console.log(B.__proto__);
+// console.log(B.prototype.__proto__);
+// console.log(b.__proto__.__proto__);
+
+
+// *******************************
+// function duplicatedWord(chars) {
+//     let obj = {};
+//     chars.forEach(element => {
+//     var keys = Object.keys(obj);
+//       if(!keys.includes(element)){
+//           obj[element] = 'false'
+//       }
+//       else{
+//         obj[element] = 'true'
+//       }
+//     });
+
+//     return obj;
+// }
+// const arr = ['a','b','c','c']
+// const newMap =  duplicatedWord(arr)
+// console.log(newMap);
+
+
+
+// ***********************************
+// console.log('value is'+(val!='0')?'chen':'dibo');
+// console.log(b);
+
+
+// ***************************
+// var  k  = 0;
+// for (var i=0,j=0;i<10,j<6;i++,j++){
+//   k += i + j;
+// }
+// console.log(k);
+
+
+// const res  = [...new Set(arr)]
+// console.log(res);
+
+// const arr = [1,3,4,5,7,2]
+// // const res = Math.min(...arr)
+// const res = Math.max.apply(this,arr)
+// console.log(res);
+
+// 斐波那契 递归
+// function fb(count){
+//   function fun(count,curr=1,next=1){
+//     if(count === 0){
+//       return curr;
+//     }
+//     else{
+//       return fun(count-1,next,curr+next);
+//     }
+//   }
+//   return fun(count);
+// }
+// const res =  fb(3);
+// console.log(res);
+
+//菲波那切数列
+// function fb(n){
+//   if(n<=1){
+//     return 1
+//   }
+//   let arr = [1,1]
+//   let i = n+1-2;
+//   while(i>0){
+//     let a = arr[arr.length-2],
+//         b = arr[arr.length-1];
+//       arr.push(a+b);
+//       i--;
+//   }
+//   return arr[arr.length-1]
+// }
+
+// const res = fb(5);
+// console.log(res);
+
+//*****cdb******JSON.parse(JSON.stringigy()是深克隆)
+// let a = {name:'chendibo'}
+// let b = a;
+// const res = JSON.parse(JSON.stringify(a))
+// console.log(res);
+// console.log(a===res);
+
+/* **********************cdb**********************
+计算从1-10000中出现的0的次数 */
+// const res = new Array(10000).fill('')
+// .map((item,index)=>index+1)
+// .filter(item => /0/.test(item))
+// .reduce((count,item)=>{
+//   return count += (String(item).match(/0/g)||[]).length
+// },0)
+// console.log(res);
+
+//*******无法去除重复的对象*****************
+// const arr =[1,1,2,2,3,33,33,33,{1:2},{1:2}]
+// const res = [...new Set(arr)]
+// console.log(res);
+
+// ********利用filter去重******************
+// function unique(arr){
+//   return arr.filter((item,index,arr)=>{
+//     return arr.indexOf(item,0) === index;
+//   })
+// }
+// console.log(unique(arr));
+
+// 88888888动态创建a标签，并为其绑定事件888888888888
+// for(let i=1;i<11;i++){
+//   const a = document.createElement('a')
+//   a.innerHTML = `${i}<br>`;
+//   a.addEventListener('click',(e)=>{
+//     e.preventDefault();
+//     alert(i)
+//   },false)
+//   document.body.appendChild(a)
+// }
+
+//*****bind函数******* 
+
+//*********await之后的reject()将会报错**********
+// !async function(){
+//   console.log('start');
+//   const a = await 100;
+//   console.log(`a${a}`);
+//   const b = await Promise.resolve(200);
+//   console.log(`b${b}`);
+//   const c = await Promise.reject(300);
+//   console.log(`c${c}`);
+//   console.log(`end`);
+// }()
+
+const arr = [1,2,3]
+const res = arr.filter((item)=>item === 9)
+console.log(res);
+console.log(arr);
+</script>
+</body>
+
+</html>
