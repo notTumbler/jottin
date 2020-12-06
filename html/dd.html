@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>双向绑定</title>
+</head>
+<body>
+  <script>
+    let user={
+      name:'chen',
+      firend:{
+        name:'ao',
+        age:21
+      },
+      arr:[1,2]
+    }
+
+    class Observer{
+      constructor(val){
+        this.val = val;
+        if(val instanceof Array){
+          console.log('is Array')
+        }else{
+          this.walk(val)
+        }
+      }
+
+      walk(obj){
+        const keys = Object.keys(obj)
+        keys.forEach(key => defineReactive(obj,key,obj[key]))
+      }
+    }
+
+    function defineReactive(obj,key,value){
+      if(arguments.length === 2) value = obj[key];
+      if(typeof value === 'object'){
+        new Observer(value)
+      }
+
+      const dep = new Dep()//实例化
+      Object.defineProperty(obj,key,{
+        configurable:false,
+        enumerable:true,
+        get(){
+          console.log(`Jiance${value}`)
+          dep.depend(value)
+          return value;
+        },
+        set(newValue){
+          console.log(`jiance`)
+          if(value === newValue) return;
+          dep.notify()
+          value = newValue;
+        }
+      })
+    }
+
+
+    
+    
+    const arrProto = Array.prototype;
+    const arrMethods = Object.create(arrProto)
+    const methodsToPatch = [
+      'push','pop','shift','unshift','splice','sort','reverse'
+    ]
+
+    methodsToPatch.forEach(method => {
+      const origin = arrProto[method];
+      Object.defineProperty(arrMethods,method,{
+        enumerable:true,
+        configurable:false,
+        writable:true,
+        value:function(...args){
+          console.log(`通过${method}方法修改数组`)
+          const res =  origin.apply(this,args)
+          return res;
+        }
+      })
+    })
+
+  class Dep{
+    constructor(){
+      this.subs = [];
+    }
+    addSub(sub){
+      this.subs.push(sub);
+    }
+    removeSub(sub){
+      remove(this.subs,sub);
+    }
+    depend(value){
+      if(Dep.target){
+        this.addSub(value)
+      }
+    }
+
+    notify(){
+      const subs = this.subs.slice();
+      for(let i=0,l=subs.length;i<l;i++){
+        subs[i].update()
+      }
+    }
+  }
+  Dep.target = null;
+
+  function remove(arr,item){
+    if(arr.length){
+      const index = arr.indexOf(item);
+      if(index != -1){
+        return arr.splice(index,1)
+      }
+    }
+  }
+
+  
+    
+
+  </script>
+</body>
+</html>

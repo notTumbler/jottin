@@ -140,6 +140,11 @@
 // console.log(one);
 
 
-const f = new Function('a','console.log(a)')
-f('aaa')
+// const f = new Function('a','console.log(a)')
+// f('aaa')
+
+// function whatis(str,type){
+//   return  Object.prototype.toString.calfl(str) === `[object ${type}]`
+// }
+
 

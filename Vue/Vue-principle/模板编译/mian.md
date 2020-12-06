@@ -15,3 +15,12 @@ with(obj){
   console.log(b)
   console.log(c)  --> 找不到会报错的！！
 }
+
+
+### 组件的渲染过程：(runtime-only && compiler)
+template -> ast -> render -> vDom -> Dom -> 页面
+
+**runtime-only**:从render开始
+**runtime-compiler**:从头开始
+> runtime-only体积更小更快，因为only模式下，直接就借助了vue-template-compiler将template编译成了render函数<br>
+> runtime-compiler模式下，运行时编译template，所以需要compiler并且体积更大

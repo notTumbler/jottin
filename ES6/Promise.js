@@ -1,86 +1,68 @@
+//Promise
+/**
+ * excutor是同步代码，then()和catch()中的才是异步
+ */
+
+const PENDING = 'pending'
+const FULFILLED = 'fulfilled' 
+const REJECTED = 'rejected'
+
 class P {
-  static PENDING = 'pending';
-  static FULFILLED = 'fulfilled'
-  static REJECTED  = 'rejected'
-
-  constructor(executor){
-    this.state = P.PENDING;
-    this.value = null;
-    this.reason = null;
-
-    this.onResolveCallback = []
-    this.onRejectedCallback = []
-
-    let resovle = (value)=>{
-      if(this.state === PENDING){
-        this.state = FULFILLED;
-        this.value = value
-        this.onResolveCallback.forEach(fn => fn())
+  constructor(excutor){
+    this.status = PENDING;
+    this.value = undefined;
+    this.reason = undefined;
+    this.fulFnQueue = [];
+    this.rejFnQueue = [];
+    
+    let resolve = value => {
+      if(this.status === PENDING){
+        this.status = FULFILLED;
+        this.value = value;
+        //
+        this.fulFnQueue.forEach(fn => fn())
       }
     }
-    let reject = (reason) => {
-      if(this.state === PENDING){
-        this.state = REJECTED
+    let reject = reason => {
+      if(this.status === PENDING){
+        this.status = REJECTED;
         this.reason = reason;
-        this.onRejectedCallback.forEach(fn => fn())
+        //当状态改变时，将失败队列里的函数执行
+        this.rejFnQueue.forEach(fn => fn())
       }
     }
 
-    executor(resovle,reject)
+    try {
+      excutor(resolve,reject)
+    } catch (error) {
+      reject(error)
+    }
   }
 
   then(onFulfilled,onRejected){
-    if(this.state === FULFILLED)
-    {
-      onFulfilled(this.value)
-    }
-    if(this.state === REJECTED){
-      onRejected(this.reason)
-    }
-
-    if(this.state === PENDING){
-      this.onResolveCallback.push(()=>{
+      if(this.status === FULFILLED){
         onFulfilled(this.value)
-      })
-
-      this.onRejectedCallback.push(()=>{
+      }
+      if(this.status === REJECTED){
         onRejected(this.reason)
-      })
-    }
+      }
+      if(this.status === PENDING){
+        this.fulFnQueue.push(()=>{
+          onFulfilled(this.value)
+        })
+        this.rejFnQueue.push(()=>{
+          onRejected(this.reason)
+        })
+      }
   }
 }
+new P((resolve,reject) => {
+  setTimeout(()=>{
+    reject('chen')
+  },3000)
+}).then(res => {
+  console.log(res)
+},err=>{
+  console.log(err)
+})
 
-
-
-Promise.all = function(arr){
-  if(!Array.isArray(arr)){
-    return 
-  }
-  return new Promise((resovle,reject)=>{
-    let resArr = []
-    arr.forEach(item => {
-      item.then(data=>{
-        resArr.push(data)
-        if(resArr.length === arr.length){
-          resolve(resArr)
-        }
-      },
-        err=>{
-        reject(err)
-      })
-    })
-   
-  })
-}
-
-Promise.race = function(arr){
-  return new Promise((resolve,reject) => {
-    arr.map(item => {
-      item.then(data=>{
-        resolve(data)
-      },err => {
-        reject(err)
-      })
-    })
-  })
-}

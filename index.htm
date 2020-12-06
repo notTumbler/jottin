@@ -24,7 +24,13 @@
     // createNode(`p`)
     // console.log($$("div"));
     // console.log(document.querySelectorAll('div'));
+    function Animal(){
+      this.name = 'ccc'
+    }
+    Animal.prototype.name = '哈士奇'
 
+    let dog = new Animal()
+    console.log(dog.__proto__.__proto__.constructor === Object)
   </script>
   
 </body>

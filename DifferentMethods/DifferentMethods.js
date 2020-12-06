@@ -50,7 +50,7 @@ MyMap.get(1) && MyMap.get(1)();
 
 
 
-//取整
+//下取整
 parseInt(15.88);
 
 //grace
@@ -64,4 +64,16 @@ parseInt(15.88);
 const {id = 5} = {}; //赋默认值
 console.log(id);
 
+
+//累加字符串
+let str;
+for(let i=0;i<5;i++){
+  str += 'abc'
+}
+
+str.repeat(5);
+
+//数字的幂
+Math.pow(4,3)
+const power = 4**3
 

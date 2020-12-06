@@ -131,13 +131,39 @@
 // const res = reconstructQueue(people)
 // console.log(res);
 
-function chen(n){
- return (n%4>0)
+// function chen(n){
+//  return (n%4>0)
+// }
+// console.log(chen(2));
+// console.log(chen(20));
+// console.log(chen(100));
+// console.log(chen(40));
+// console.log(chen(56));
+// console.log(chen(78));
+// console.log(chen(7));
+
+// this指向（（（（（（（（（（（（（（（（（（（（（（
+// var Chen = function(){
+//   this.a = 'a'
+//   this.b = 'b'
+//   this.c = {
+//     che:function() {
+//       console.log(this)
+//     },
+//     a:'a+',
+//     b:() => {
+//       console.log(this)
+//       return this.a
+//     }
+//   }
+// }
+
+// // console.log(new Chen().c.che())
+// console.log(new Chen().c.b())
+var  obj = {
+  age:20,
+  say:() => {
+    console.log(this)
+  }
 }
-console.log(chen(2));
-console.log(chen(20));
-console.log(chen(100));
-console.log(chen(40));
-console.log(chen(56));
-console.log(chen(78));
-console.log(chen(7));
+obj.say()
