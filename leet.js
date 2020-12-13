@@ -158,12 +158,23 @@
 //   }
 // }
 
-// // console.log(new Chen().c.che())
+// console.log(new Chen().c.che())
 // console.log(new Chen().c.b())
-var  obj = {
-  age:20,
-  say:() => {
-    console.log(this)
-  }
+// function isAnagram(s,t){
+//   if(typeof s !== 'string' || typeof t !== 'string' || s===t){return false}
+
+//   const news = s.split('') 
+//   const newt = t.split('') 
+//   const res = newt.every(item => {
+//     return news.includes(item)
+//   }) && news.every(item => {
+//     return newt.includes(item)
+//   })
+//   return res;
+// }
+function isAnagram(s,t){
+  return s.split('').sort().join('') === t.split('').sort().join('')
 }
-obj.say()
+const s = 'chen',
+      t = 'chen'
+console.log(isAnagram(s,t));

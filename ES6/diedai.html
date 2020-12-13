@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>迭代、生成</title>
+</head>
+<body>
+  <script>
+  const str = 'chendibo'
+  const arr = [1,2,3,4]
+  const obj = {
+    name : 'chen',
+    age:20,
+    c:3,
+    
+    [Symbol.iterator]:function *(){
+      let index = 0;
+      let map = new Map([['name','chen'],['age',20],['c',3],['d','dd']])
+      let mapEntries = [...map.entries()]
+      while(index < map.size){
+        yield mapEntries[index++]
+      }
+      // return {
+        // next(){
+          // let mapEntries = [...map.entries()]
+          // if(index < map.size){
+          //   return {value:mapEntries[index++],done:false}
+          // }
+          // return {value:undefined,done:true}
+        // }
+      // }
+    }
+
+  }
+
+  // const iter = obj[Symbol.iterator]()
+  // console.log(iter.next().value)
+  // console.log(iter.next())
+  // console.log(iter.next())
+  // console.log(iter.next())
+
+
+
+  for(let i of obj){
+    console.log(i);
+  }
+ 
+
+  
+  // const iter = makeIterator(arr);
+  // console.log(iter.next())
+  // console.log(iter.next())
+  // console.log(iter.next())
+  // console.log(iter.next())
+  // console.log(iter.next())
+
+
+
+
+
+  </script>
+</body>
+</html>

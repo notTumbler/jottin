@@ -50,7 +50,7 @@ MyMap.get(1) && MyMap.get(1)();
 
 
 
-//下取整
+//下 取整
 parseInt(15.88);
 
 //grace
