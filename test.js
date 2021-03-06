@@ -147,5 +147,38 @@
 //   return  Object.prototype.toString.calfl(str) === `[object ${type}]`
 // }
 
+//***** */ JSON序列化的参数
+// const obj = {
+//   'name':'chen',
+//   age:20,
+//   sex:'nan'
+// }
 
+// // function re(...args) {
+// //   // console.log(...args)
+// //   // const chen = {...args};
+// //   // console.log(chen)
+// // }
+// let res = JSON.stringify(obj,['name','age'],10)
+// console.log(res)
 
+// function formatPrice(price) {
+//   return price.toString().split('').reverse().reduce((pre,item,index) => {
+//     return (index%3 ? item : item+',') + pre;
+//   })
+// }
+
+function formatPrice(price) {
+  return String(price).replace(/\B(?=(\d{3})+(?!\d))/g,',')
+}
+console.log(formatPrice(32151536))
+
+const option = {
+  style:'currency',
+  currency:'cny',
+  // currencyDisplay:'name' //'symblo','code'
+}
+console.log((425).toLocaleString('zh-CN',option))
+
+var num = 9
+console.log(num.toLocaleString('zh-u-nu-hanidec')) // "一"

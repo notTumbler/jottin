@@ -19,3 +19,28 @@
   * 5、寄生式继承
   * 6、寄生组合式继承
   */
+function Parent(){
+  console.log(`this is This${this}`)
+  this.name = 'chen'
+}
+Parent.prototype.getName = function(){
+  return this.name;
+}
+
+function person(){
+  Parent.call(this)
+  this.friend = ['one','two']
+}
+
+function clone(father,child){
+  child.prototype = Object.create(father.prototype)
+  child.prototype.constructor = child
+}
+
+clone(Parent,person)
+person.prototype.getFriend = function(){
+  return this.friend;
+}
+
+// const per = new person();
+// console.log(per.__proto__)
