@@ -4,18 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #chena{
+      background-color: red;
+      height: 100px;
+    }
+    
+    .divtwo{
+      background-color: palevioletred;
+      height: 50px;
+      position: absolute;
+      top: 200px;
+    }
+
+
+  </style>
 </head>
 <body>
-  <ul id="chen">
-    <li value="2">1</li>
-    <li  value=3>2</li>
-    <li>3</li>
-    <li>4</li>
-  </ul>
-  <input type="date" class="typ"><br>
 
-  <input type="number" max='199' min ='49'  value="10">
- 
 </body>
 <script>
 //   const chen = document.getElementById('chen');
@@ -111,8 +117,33 @@
 // const res = add(1)(3)
 // console.log(res);
 
+console.log('计算localStorage的容量')
+let str = '0123456789'
+let temp = ''
+while(str.length <= 10240) {
+  str += str
+}
+localStorage.clear()
+const computedTotal = () => {
+  return new Promise((resolve) => {
+    const timer = setInterval(() => {
+      try {
+        localStorage.setItem('a', temp)
+      } catch (error) {
+        resolve(temp.length/1024)
+        localStorage.clear()
+        clearInterval(timer)
+      }
+      temp += str
+    }, 0)
+  })
+}
 
-
+(async () => {
+  const total = await computedTotal()
+  console.log(`最大的容量${total}kb`)
+})()
 
 </script>
+
 </html>

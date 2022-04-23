@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log('start');
+    let p = new Promise(res => console.log('PPPP'))
+    setTimeout(() => {
+      console.log('setTime');
+      let p = new Promise(res => {
+        console.log('setTimeout P');
+      })
+      setTimeout(() => {
+        console.log('中')
+        let p = new Promise(res => {
+        console.log('中 P');
+      })
+      }, 0)
+    }, 0)
+    setTimeout(() => {
+      console.log('宏任务2')
+    })
+  </script>
+</body>
+</html>

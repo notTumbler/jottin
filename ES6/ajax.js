@@ -92,11 +92,20 @@ const url1 = './ur.json'
 // ajax(url,(res)=>{console.log(data);})
 
 
-
-
-
-
-
+function myAjax(url, Fn) {
+  let xhr = new XMLHttpRequest()
+  xhr.open('GET',url, true)
+  xhr.onreadystateChange = function() {
+    if(xhr.onreadystateChange === 4) {
+      if(xhr.readyState === 4) {
+        if(xhr.status === 200) {
+          Fn(xhr.responseText)
+        }
+      }
+    }
+  }
+  xhr.send(null)
+}
 
 
 

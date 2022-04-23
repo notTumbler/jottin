@@ -1,184 +1,137 @@
+let obj = {
+  a: "a",
+  b: "b",
+  c: "c",
+  d: {
+    name: "chen",
+    age: 23,
+  },
+};
+// console.log(JSON.stringify(obj, ["a", "b"]));
+// let res = JSON.stringify(obj, (k, v) => {
+//   console.log("ke", k);
+//   console.log("va", v);
+//   if (typeof v === "string") return `${v} + 1234`;
+//   // return 'b';
+// });
+// console.log("res", res);
 
-// Array.prototype.chen = function(){
-//   let newArr = [];
-//   this.forEach((ele,index) => {
-//     if(this.indexOf(ele) !== index){
-//       newArr.push(ele)
-//       // this.splice(index,1)
+// let a = [1,2,3,4,5]
+// a.forEach((item, i) => {
+//   if(i ===1 || item === 3) return true
+//   console.log(item, i);
+//   return i
+// })
+// class U {
+//   constructor() {
+//     this.task = []
+//     setTimeout(() => this.next())
+//   }
+//   next() {
+//     const task = this.task.shift()
+//     task && task()
+//   }
+//   console(str) {
+//     const task = () => {
+//       console.log(str)
+//       this.next()
 //     }
-//   });
-//   return newArr;
-// }
+//     this.task.push(task)
 
-// const arr = [1,1,1,5,6,6,7,7,7,8];
-
-
-// function shallowClone(obj){
-//   let newobj = {};
-  
-//   for(let i in obj){
-//     newobj[i] = obj[i]
+//     console.log(this)
+//     return this
 //   }
-//   return newobj;
-// }
 
-// const ob1 = {
-//   name:'chen',
-//   age:{
-//     age1:12
-//   }
-// }
-
-// const chen = shallowClone(ob1)
-
-// console.log(chen);
-
-// console.log(chen === ob1);
-
-// var str = 'aabbbbbbcdeeef'
-// let x = 0;
-// let y = ''
-
-// for(let i=0;i<str.length;i++){
-//   if(str[i] === y[y.length-1]){
-//     x++;
-//   }
-//   else{
-//     if(x!==0){
-//       y += x+1
-//       x = 0
+//   setTimeout(delay) {
+//     const task = () => {
+//       setTimeout(() => {
+//         this.next()
+//       }, delay)
 //     }
-//     y += str[i]
+//     this.task.push(task)
+//     return this
 //   }
 // }
 
-// console.log(y);
+// const u = new U()
+// u.console('早').setTimeout(2000).console('中').setTimeout(2000).console('晚').setTimeout(2000).console('睡觉吧')
+
+const add = (...args) => {
+  return args.reduce((pre, item) => {
+    return pre + item;
+  }, 0);
+};
 
 
-// let obj = {
-//   'A':1,
-//   'B.C':2,
-//   'D.E.F':3,
-//   'D.E.G.H':4
-// }
-
-
-// function foo(obj){
-
-//   let resObj = {}
-//   for(let i in obj){
-//     let keyArr = i.split('.');  
-//     if(keyArr.length === 1){
-//       keyArr = keyArr.join('')
-//       console.log(keyArr);
-//       resObj[keyArr[0]] = obj[i]
+// const currying = (fn) => {
+//   let fnLen = fn.length;
+//   console.log("fn", fnLen);
+//   return function collectArgs() {
+//     const list = [...arguments];
+//     if (list.length >= fnLen) {
+//       return fn(...list);
 //     }
-//     if(keyArr.length!==1){
-//      const chen = keyArr.shift();
-//       resObj[chen] = foo(keyArr);
-//     }
-//   }
-//   return resObj
-// }
+//     return function () {
+//       return collectArgs(...list, ...arguments);
+//     };
+//   };
+// };
 
-// const res = foo(obj)
-// console.log(res);
-
-// // http https
-// const str = 'httpdfadfasdfsdfasdf'
-
-// function chen (str){
-//   if(!str instanceof String){
-//     return
-//   }
-//   return str.match(/^(http)(s)?/)
-// }
-
-// const res = chen(str)
-// console.log(res);
-
-
-// *****************************************
-// const str = 'chendibo'
-// //从指定位置，截取长度
-// console.log(str.substr(1,3));
-
-// //从开始到结束
-// console.log(str.substring(1,10));
-// console.log(str.slice(1,-2));
-
-
-
-// **********匹配字符串****************
-// var str = 'https65'
-// function chen(str){
-//   if(typeof(str) !== 'string'){
-//     throw new Error('bushi Str')
-//   }
-
-//   const Rex = new RegExp('^(http)(s)?')
-//   console.log(Rex.test(str)); 
-// }
-// chen(str)
-
-//********new********* */
-// function _new(){
-//   let obj = Array.prototype.shift.call(arguments)
-//   let newobj = {}
-//   newobj.__proto__ = obj.prototype;
-//   let result = obj.apply(newobj,arguments)
-//   return result instanceof Object?result:newobj;
-// }
-
-// function flatten(array){
-//   return array.reduce((pre,item)=>{
-//     return pre.concat(Array.isArray(item)?flatten(item):item)
-//   },[])
-// }
-
-// const one = Object.prototype.toString.call()
-// console.log(one);
-
-
-// const f = new Function('a','console.log(a)')
-// f('aaa')
-
-// function whatis(str,type){
-//   return  Object.prototype.toString.calfl(str) === `[object ${type}]`
-// }
-
-//***** */ JSON序列化的参数
-// const obj = {
-//   'name':'chen',
-//   age:20,
-//   sex:'nan'
-// }
-
-// // function re(...args) {
-// //   // console.log(...args)
-// //   // const chen = {...args};
-// //   // console.log(chen)
-// // }
-// let res = JSON.stringify(obj,['name','age'],10)
-// console.log(res)
-
-// function formatPrice(price) {
-//   return price.toString().split('').reverse().reduce((pre,item,index) => {
-//     return (index%3 ? item : item+',') + pre;
-//   })
-// }
-
-function formatPrice(price) {
-  return String(price).replace(/\B(?=(\d{3})+(?!\d))/g,',')
+const currying = (fn) => {
+  let fnLen = fn.length
+  return function collectArgs(...args) {
+    if(args.length >= fnLen) {
+      return fn(...args)
+    }
+    return function() {
+      return collectArgs(...args, ...arguments)
+    }
+  }
 }
-console.log(formatPrice(32151536))
 
-const option = {
-  style:'currency',
-  currency:'cny',
-  // currencyDisplay:'name' //'symblo','code'
+const add1 = (a,b,c) => {
+  return a+b+c
 }
-console.log((425).toLocaleString('zh-CN',option))
 
-var num = 9
-console.log(num.toLocaleString('zh-u-nu-hanidec')) // "一"
+// const cur = (fn) => {
+//   return function() {
+//     const args = [...arguments]
+//     if(args.length === 0) {
+//       return fn(...args)
+//     }
+//     return cur(fn.bind(null, ...args))
+//   }
+// }
+const chen = currying(add1)
+console.log(chen(1)(2,4,5));
+
+
+const one = '123'
+const two = '9876'
+
+const bigAdd = (a, b) => {
+  const arr1 = a.split('').reverse()
+  const arr2 = b.split('').reverse()
+  const len = Math.max(arr1.length,arr2.length)
+
+  const res = []
+  let flag = 0
+
+  for(let i=0; i<len; i++) {
+    const num1 = +arr1[i] || 0
+    const num2 = +arr2[i] || 0
+    let sum = num1 + num2 + flag
+    if(sum >= 10) {
+      sum %= 10
+      flag = 1
+    } else {
+      flag = 0
+    }
+    res.push(sum)
+    if(i===len-1 && flag) {
+      res.push(1)
+    }
+  }
+  return res.reverse().join('')
+}
+console.log(bigAdd(one, two))

@@ -4,7 +4,7 @@ let user = {
 }
 user = new Proxy(user,{
   ownKeys(target){
-    return Object.keys(target).filter(item => item.match(/^n/,''))
+    return Object.keys(target).filter(item => item.match(/^a/,''))
     // return ['a','b']
   }
 })

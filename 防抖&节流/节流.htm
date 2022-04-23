@@ -60,25 +60,44 @@
 
 
     //防抖
-    function debounce(fun,delay,immediate=false){
-  let timer = null;
+//     function debounce(fun,delay,immediate=false){
+//   let timer = null;
 
-  return function(){
-    let that = this;
+//   return function(){
+//     let that = this;
     
-    let args = arguments;
+//     let args = arguments;
 
-    if(timer) clearTimeout(timer);
-    if(immediate){
-      let callNow = !timer;
+//     if(timer) clearTimeout(timer);
+//     if(immediate){
+//       let callNow = !timer;
+//       timer = setTimeout(()=>{
+//         timer = null;
+//       },delay)
+//       if(callNow) fun.apply(that,args);
+//     }
+//     else{
+//       timer = setTimeout(()=>{
+//         fun.apply(that,args);
+//       },delay)
+//     }
+//   }
+// }
+function debouce(fn,delay,imm){
+  let timer = null
+  return function(){
+    let self = this
+    let args = arguments
+    if(timer) clearTimeout(timer)
+    if(imm){
+      let instant = !timer
       timer = setTimeout(()=>{
-        timer = null;
+        timer = null
       },delay)
-      if(callNow) fun.apply(that,args);
-    }
-    else{
+      if(instant) fn.apply(self,args)
+    }else{
       timer = setTimeout(()=>{
-        fun.apply(that,args);
+        fn.apply(self,args)
       },delay)
     }
   }

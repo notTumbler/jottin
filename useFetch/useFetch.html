@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const to = (promise, errText) => {
+        return promise
+          .then((res) => {
+            return [null, res];
+          })
+          .catch((err) => {
+            if (errText) {
+              return [{ ...err, errText }, null];
+            }
+            return [err, null];
+          });
+      };
+      const control = new AbortController();
+      const { signal } = control;
+
+      setTimeout(() => control.abort(), 2000);
+      signal.addEventListener("abort", () => console.log("zzzz中止了"));
+      fetch('http://localhost:3000', {
+        signal
+      }).then(res => {
+        console.log(signal.aborted)
+      })
+      .catch(err => {
+        console.log('eee', err.name)
+      })
+    </script>
+  </body>
+</html>

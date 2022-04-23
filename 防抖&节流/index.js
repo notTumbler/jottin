@@ -6,43 +6,50 @@
 
 /* 防抖 */
 
-function debounce(fun,delay,immediate = false){
-
-  if(immediate!==true && immediate!==false){
-    throw new Error('immediate的值只能为true||false')
+function debounce(fun, delay, immediate = false) {
+  if (immediate !== true && immediate !== false) {
+    throw new Error("immediate的值只能为true||false");
   }
 
   let timer = null;
 
-  return function(){
+  return function () {
     let that = this;
     console.log(this);
     let args = arguments;
 
-    if(timer) clearTimeout(timer);
-    if(immediate){
+    if (timer) clearTimeout(timer);
+    if (immediate) {
       let callNow = !timer;
-      timer = setTimeout(()=>{
+      timer = setTimeout(() => {
         timer = null;
-      },delay)
-      if(callNow) fun.apply(that,args);
+      }, delay);
+      console.log("time", timer);
+      if (callNow) fun.apply(that, args);
+    } else {
+      timer = setTimeout(() => {
+        fun.apply(that, args);
+      }, delay);
     }
-    else{
-      timer = setTimeout(()=>{
-        fun.apply(that,args);
-      },delay)
-    }
-  }
+  };
 }
 
 
-  
- 
+// debounce(setInterval(()=>{
+//   console.log(1);
+// },1000),2000,true)
 
-
-debounce(setInterval(()=>{
-  console.log(1);
-},1000),2000,false)
-
-
-
+// //
+// function jieliu (fn,de) {
+//   let timer = null
+//   return function(){
+//     let that = this,
+//     args = [...arguments]
+//     if(!timer){
+//       timer = setTimeout(()=>{
+//         fn.apply(that,args)
+//         timer = null
+//       })
+//     }
+//   }
+// }

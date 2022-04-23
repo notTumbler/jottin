@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const file = new File(["a".repeat(10000)], "test.txt");
+      console.log(file);
+      const chunkSize = 5000;
+      for (let start = 0; start < file.size; start += chunkSize) {
+        const chunk = file.slice(start, start + chunkSize + 1);
+        console.log("ch", chunk.stream().tee()[0].getReader().closed.then(res => console.log(res)))
+        //  chunk.arrayBuffer().then((res) => console.log(res))
+
+        const fd = new FormData();
+        fd.append("data", chunk);
+      }
+    </script>
+  </body>
+</html>

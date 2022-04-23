@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+      const canvasEl = document.getElementById("canvas");
+      canvasEl.width = window.innerWidth;
+      canvasEl.height = window.innerHeight;
+      const ctx = canvasEl.getContext("2d");
+      const particlesArray = [];
+      const count = parseInt(((canvasEl.height / 200) * canvasEl.width) / 200);
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.directionX = 0.5 - Math.random();
+          this.directionY = 0.5 - Math.random();
+        }
+        update() {
+          this.y += this.directionY;
+          this.x += this.directionX;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+          ctx.fillStyle = "white";
+          ctx.fill();
+        }
+      }
+
+      function createParticle() {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        particlesArray.push(new Particle(x, y));
+      }
+
+      function handleParticle() {
+        for (let i = 0; i < particlesArray.length; i++) {
+          var item = particlesArray[i];
+          item.update();
+          item.draw();
+          if (
+            item.x < 0 ||
+            item.x > canvasEl.width ||
+            item.y < 0 ||
+            item.y > canvasEl.height
+          ) {
+            particlesArray.splice(i, 1);
+          }
+          for (let j = i; j < particlesArray.length; j++) {
+            dx = particlesArray[i].x - particlesArray[j].x;
+            dy = particlesArray[i].y - particlesArray[j].y;
+            long = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+            if (long < 200) {
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(255,255,255,${1 - long / 200})`;
+              ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+              ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+        if (particlesArray.length < count) {
+          createParticle();
+        }
+        handleParticle();
+      }
+
+      setInterval(() => {
+        draw()
+      }, 20);
+    </script>
+  </body>
+</html>

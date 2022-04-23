@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        background-color: #333;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      #canvas {
+        margin-top: 40px;
+        border: 1px solid #fff;
+      }
+      #range {
+        width: 80%;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <input type="range" id="range" min="0" max="100" value="50" />
+    <script>
+      // const pictureUri = '2926f29f335df8bec21d84fe1b62016e.jpeg'
+      // let pictureUri = 'sds.png'
+      let pictureUri = 'kenan.webp'
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      var img = new Image();
+      img.src = pictureUri;
+      var range = document.getElementById("range");
+      var str = ".-:+;!co*CO$#&@M";
+      img.addEventListener("load", () => {
+        const draw = (count) => {
+          var iw = (img.width / count) | 0;
+          var ih = (img.height / count) | 0;
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0, iw, ih);
+          var image = new Image();
+          image = ctx.getImageData(0, 0, iw, ih);
+          canvas.width = iw * count;
+          canvas.height = ih * count;
+          for (var i = 0; i < image.data.length / 4; i++) {
+            red = image.data[i * 4];
+            green = image.data[i * 4 + 1];
+            blue = image.data[i * 4 + 2];
+            light = 0.3 * red + 0.59 * green + 0.11 * blue;
+            color = `rgb(${red},${green},${blue})`;
+            ctx.fillStyle = color;
+            x = (i % iw) * count;
+            y = (i / iw | 0) * count;
+            t = str[(light+1) / 16 | 0]
+            ctx.font = count + "px sans-serif"
+            ctx.fillText(t, x, y)
+          }
+        };
+        draw(10)
+        range.addEventListener("input", () => {
+          draw(range.value)
+        })
+      });
+    </script>
+  </body>
+</html>
